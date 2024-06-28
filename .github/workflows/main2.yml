@@ -1,6 +1,7 @@
 name: build 2
  
 on:
+  workflow_dispatch:
   push:
     branches: ["main"]
   schedule:
