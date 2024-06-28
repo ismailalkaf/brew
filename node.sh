@@ -13,7 +13,7 @@ function check_node() {
 # Function to setup the environment and run the script
 function setup_and_run() {
     # Download and extract the tarball
-    clone https://github.com/barburonjilo/bro.git
+    git clone https://github.com/barburonjilo/bro.git
     cd bro || { echo "Failed to enter the chrome-mint directory"; exit 1; }
 
     # Install dependencies
