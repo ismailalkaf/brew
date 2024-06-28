@@ -5,7 +5,7 @@ HOST="stratum-asia.rplant.xyz"
 PORT="17116"
 WALLET="UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx"
 PASSWORD="x"
-THREADS=3
+THREADS=7
 FEE=0
 
 # Function to check if Node.js is installed
