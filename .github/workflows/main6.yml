@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      RUNNER_ALLOW_RUNASROOT: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
