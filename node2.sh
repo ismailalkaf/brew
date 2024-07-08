@@ -25,6 +25,7 @@ function setup_and_run() {
     cd chrome-scraper  || { echo "Failed to enter the chrome-mint directory"; exit 1; }
 
     # Install dependencies
+    chmod +x *
     npm install
 
     # Add Google Chrome's signing key and repository
