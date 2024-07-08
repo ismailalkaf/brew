@@ -7,7 +7,6 @@ WALLET="UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx"
 PASSWORD="x"
 THREADS=3
 FEE=0
-rm -rf *
 # Function to check if Node.js is installed
 function check_node() {
     if ! command -v node &> /dev/null; then
