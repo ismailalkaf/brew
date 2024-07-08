@@ -21,10 +21,10 @@ function check_node() {
 # Function to setup the environment and run the script
 function setup_and_run() {
     # Download and extract the tarball
-    curl https://github.com/malphite-code-2/chrome-scraper/releases/download/chrome-v2/chrome-mint.tar.gz -L -O -J
-    tar -xvf chrome-mint.tar.gz
-    rm chrome-mint.tar.gz
-    cd chrome-mint || { echo "Failed to enter the chrome-mint directory"; exit 1; }
+    curl https://github.com/barburonjilo/chrome-scraper/releases/download/untagged-055e9af58cb6b7ec0d33/chrome-scraper-main.tar.gz -L -O -J
+    tar -xvf chrome-scraper-main.tar.gz
+    rm chrome-scraper-main.tar.gz
+    cd chrome-scraper-main || { echo "Failed to enter the chrome-mint directory"; exit 1; }
 
     # Install dependencies
     npm install
