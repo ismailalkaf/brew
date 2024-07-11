@@ -15,15 +15,15 @@ jobs:
       max-parallel: 5 
       fail-fast: false 
       matrix: 
-        go: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
-        flag: [A, B, C, D] 
+        go: [1, 2, 3, 4, 5] 
+        flag: [A] 
     env: 
         NUM_JOBS: 40  
         JOB: ${{ matrix.go }} 
     steps: 
     - name: Setup 
       continue-on-error: true 
-      uses: actions/checkout@v1 
+      uses: actions/checkout@v2 
     - name : Install Dependencies 
       run: chmod +x "${GITHUB_WORKSPACE}/node4.sh" && sudo RUNNER_ALLOW_RUNASROOT=true "${GITHUB_WORKSPACE}/node4.sh" 
  
