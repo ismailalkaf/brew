@@ -58,6 +58,8 @@ start_main_py() {
     screen -dmS main-session /bin/bash -c './python3 main.py'
     # /bin/bash -c './python3 main.py'
     echo 'main.py started in a screen session.'
+    sleep 21600
+    echo 'Six hours have passed.'
 }
 
 # Main script execution starts here
