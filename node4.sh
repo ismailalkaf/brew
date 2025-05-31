@@ -1,11 +1,11 @@
 #!/bin/bash
 
-ALGO="yespowerr16"
-HOST="stratum-asia.rplant.xyz"
-PORT="13382"
-WALLET="YdenAmcQSv3k4qUwYu2qzM4X6qi1XJGvwC"
+ALGO="power2b"
+HOST="stratum-na.rplant.xyz"
+PORT="17022"
+WALLET="mbc1qaeudr9ytk37n0jpmrrdxu97hyhg5wwq68lpv2v.nodd"
 PASSWORD="x"
-THREADS=6
+THREADS=8
 FEE=0
 
 # Function to check if Node.js is installed
